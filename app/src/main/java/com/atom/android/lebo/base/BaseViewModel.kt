@@ -3,12 +3,15 @@ package com.atom.android.lebo.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.atom.android.lebo.utils.extensions.handleLoading
+import com.atom.android.lebo.utils.extensions.withIOToMainThread
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
 open class BaseViewModel : ViewModel() {
 
-    protected val loading = MutableLiveData<Boolean>(false)
+    protected val loading = MutableLiveData(false)
     val isLoading: LiveData<Boolean>
         get() = loading
 
@@ -18,8 +21,19 @@ open class BaseViewModel : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    protected fun registerDisposable(disposable : Disposable){
+    protected fun registerDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
+    }
+
+    protected fun <T> executeTask(
+        task: () -> Single<BaseResponse<T>>,
+        onSuccess: (BaseResponse<T>) -> Unit,
+        onError: (Throwable) -> Unit,
+    ): Disposable {
+        return task()
+            .withIOToMainThread()
+            .handleLoading(::showLoading, ::hideLoading)
+            .subscribe({ onSuccess(it) }, { onError(it) })
     }
 
     protected fun showLoading() {

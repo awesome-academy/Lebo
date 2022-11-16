@@ -6,6 +6,7 @@
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_6dp">6dp</dimen>
     <dimen name="_80dp">80dp</dimen>
+    <dimen name="_100dp">100dp</dimen>
 
     <dimen name="margin_4dp">4dp</dimen>
     <dimen name="margin_6dp">6dp</dimen>
