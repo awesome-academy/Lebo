@@ -18,7 +18,7 @@ fun Dialog.start(stopFlag: Boolean) {
             )
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             attributes.apply {
-                y = Constant.DIALOG_CONFIG.MARGIN_Y
+                y = Constant.DIALOGCONFIG.MARGIN_Y
                 gravity = Gravity.CENTER
             }
         }

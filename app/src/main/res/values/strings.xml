@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">LeBo</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_login_now">Đăng nhập \nngay</string>
+    <string name="text_input_email">Nhập email</string>
+    <string name="text_input_password">Nhập mật khẩu</string>
+    <string name="text_login_OTP">Đăng nhập OTP</string>
+    <string name="text_forgot_password">Quên mật khẩu ?</string>
+    <string name="text_login">Đăng nhập</string>
+    <string name="text_signup">Đăng kí</string>
+    <string name="text_question_signup">Chưa có tài khoản?. </string>
+    <string name="title_home">Trang chủ</string>
+    <string name="title_account">Tài khoản</string>
+    <string name="mess_required_field_email">Vui lòng nhập email !</string>
+    <string name="mess_validate_email_failed">Email không đúng định dạng !</string>
+    <string name="mess_required_field_password">Vui lòng nhập mật khẩu !</string>
+    <string name="mess_validate_password_failed">Mật khẩu phải ít nhất 6 kí tự !</string>
+    <string name="mess_required_field_confirm_password">Vui lòng xác nhận lại mật khẩu !</string>
+    <string name="mess_validate_confirm_password_failed">Mật khẩu xác nhận không khớp !</string>
+    <string name="text_login_otp">Đăng nhập \nOTP</string>
+    <string name="text_notification_login_otp">Mã sẽ được gửi tới %s </string>
+    <string name="back">Quay lại</string>
+    <string name="something">Some thing</string>
+    <string name="message_wait_for_send_request">Vui lòng yêu cầu lại sau </string>
+    <string name="resend_otp">Gửi lại ?</string>
+    <string name="mess_required_field_otp">Vui lòng nhập mã OTP</string>
+    <string name="mess_validate_otp_failed">Nhâp mã OTP gồm 6 số !</string>
 </resources>

@@ -63,6 +63,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation "com.airbnb.android:lottie:5.2.0"
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 
     def navigation_version = "2.5.3"
     implementation "androidx.navigation:navigation-fragment:${navigation_version}"
@@ -84,6 +87,7 @@ dependencies {
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:${retrofit_version}"
 
     def okhttp_version = "4.7.2"
     implementation "com.squareup.okhttp3:okhttp:${okhttp_version}"
