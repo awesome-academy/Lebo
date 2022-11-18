@@ -12,7 +12,6 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 val networkModule = module {
     single { provideOkHttpClient(get()) }
     single { provideRetrofit(get()) }
@@ -24,9 +23,9 @@ private fun provideOkHttpClient(sharedPreferences: SharedPreferences): OkHttpCli
 
     val okHttpClient = OkHttpClient.Builder()
     okHttpClient
-        .connectTimeout(ApiConstant.TIME_OUT.CONNECT, TimeUnit.SECONDS)
-        .readTimeout(ApiConstant.TIME_OUT.READ, TimeUnit.SECONDS)
-        .writeTimeout(ApiConstant.TIME_OUT.WRITE, TimeUnit.SECONDS)
+        .connectTimeout(ApiConstant.TIMEOUT.CONNECT, TimeUnit.SECONDS)
+        .readTimeout(ApiConstant.TIMEOUT.READ, TimeUnit.SECONDS)
+        .writeTimeout(ApiConstant.TIMEOUT.WRITE, TimeUnit.SECONDS)
         .addInterceptor(httpLoggingInterceptor)
         .addInterceptor { chain ->
             val authorRequest = chain.request().newBuilder()

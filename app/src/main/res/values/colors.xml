@@ -13,5 +13,6 @@
     <color name="color_main_green_700">#499144</color>
     <color name="color_main_green_900">#317C2C</color>
     <color name="color_red">#F44336</color>
+    <color name="color_red_700">#DC2C1F</color>
     <color name="color_gray">#7B8E8E</color>
 </resources>
