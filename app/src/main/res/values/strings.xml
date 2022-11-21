@@ -25,4 +25,18 @@
     <string name="resend_otp">Gửi lại ?</string>
     <string name="mess_required_field_otp">Vui lòng nhập mã OTP</string>
     <string name="mess_validate_otp_failed">Nhâp mã OTP gồm 6 số !</string>
+    <string name="text_relogin">Vui lòng đăng nhập để tiếp tục !</string>
+    <string name="text_title_forgot_password">quên mật\nkhẩu</string>
+    <string name="text_confirm">Xác nhận</string>
+    <string name="text_suggest_forgot_password">Nhập email đã đăng kí !</string>
+    <string name="title_library">Thư viện</string>
+    <string name="title_favorite">Yêu thích</string>
+    <string name="string_default">string</string>
+    <string name="title_notification">Thông báo</string>
+    <string name="title_bill_ordered">Đơn hàng của bạn</string>
+    <string name="title_change_password">Thay đổi mật khẩu</string>
+    <string name="title_help">Trợ giúp</string>
+    <string name="text_logout">Đăng xuất</string>
+    <string name="text_cancel">Hủy bỏ</string>
+    <string name="text_notification_not_login">Bạn chưa đăng nhập !</string>
 </resources>
