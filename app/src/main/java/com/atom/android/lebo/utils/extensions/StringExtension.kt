@@ -3,11 +3,19 @@ package com.atom.android.lebo.utils.extensions
 import android.content.Context
 import com.atom.android.lebo.R
 import com.atom.android.lebo.utils.constants.Constant
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.NumberFormat
 import java.util.regex.Pattern
 
 fun String?.isValidEmail(context: Context?) = when {
     this.isNullOrEmpty() -> {
         Pair(false, context?.getString(R.string.mess_required_field_email))
+    }
+    this.isBlank() -> {
+        Pair(false, context?.getString(R.string.mess_field_blank))
     }
     !Pattern.matches(Constant.REGEX.EMAIL, this) -> {
         Pair(false, context?.getString(R.string.mess_validate_email_failed))
@@ -21,6 +29,9 @@ fun String?.isValidPassword(context: Context?) = when {
     this.isNullOrEmpty() -> {
         Pair(false, context?.getString(R.string.mess_required_field_password))
     }
+    this.isBlank() -> {
+        Pair(false, context?.getString(R.string.mess_field_blank))
+    }
     !this.matches(Constant.REGEX.PASS_WORD.toRegex()) -> {
         Pair(false, context?.getString(R.string.mess_validate_password_failed))
     }
@@ -32,6 +43,9 @@ fun String?.isValidPassword(context: Context?) = when {
 fun String?.isValidConfirmPassword(context: Context?, password: String) = when {
     this.isNullOrEmpty() -> {
         Pair(false, context?.getString(R.string.mess_required_field_confirm_password))
+    }
+    this.isBlank() -> {
+        Pair(false, context?.getString(R.string.mess_field_blank))
     }
     this != password -> {
         Pair(false, context?.getString(R.string.mess_validate_confirm_password_failed))
@@ -51,4 +65,15 @@ fun String?.isValidOTP(context: Context?) = when {
     else -> {
         Pair(true, null)
     }
+}
+
+fun String.convertStrToMoney(): String {
+    val nf: NumberFormat = NumberFormat.getCurrencyInstance()
+    val dfs = DecimalFormatSymbols()
+    dfs.currencySymbol = Constant.DEFAULT.STRING
+    dfs.groupingSeparator = Constant.DEFAULT.DOT
+    nf.minimumFractionDigits = 0
+    nf.roundingMode = RoundingMode.HALF_UP
+    (nf as DecimalFormat).decimalFormatSymbols = dfs
+    return java.lang.String.valueOf(nf.format(BigDecimal(this))) + Constant.CURRENCY_UNIT
 }

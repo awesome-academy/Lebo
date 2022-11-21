@@ -72,7 +72,7 @@ class LoginViewModel(
                 _validateEmail.value = validEmailResult
                 _validatePassword.value = validPasswordResult
                 validEmailResult.first && validPasswordResult.first
-            }.subscribe { _validateForm.value = it }
+            }.distinctUntilChanged().subscribe { _validateForm.value = it }
         )
     }
 }

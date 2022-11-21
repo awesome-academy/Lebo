@@ -11,8 +11,6 @@ fun ImageView.loadImage(uri: Uri) {
     Picasso
         .get()
         .load(uri)
-        .resize(Constant.SIZE_DEFAULT_IMAGE, Constant.SIZE_DEFAULT_IMAGE)
-        .centerCrop()
         .placeholder(R.drawable.image_loading_default)
         .error(R.drawable.image_loading_default)
         .into(this)

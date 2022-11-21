@@ -4,6 +4,7 @@ import com.atom.android.lebo.ui.account.AccountViewModel
 import com.atom.android.lebo.ui.authentication.forgotpassword.ForgotPasswordViewModel
 import com.atom.android.lebo.ui.authentication.login.LoginViewModel
 import com.atom.android.lebo.ui.authentication.loginOTP.LoginOTPViewModel
+import com.atom.android.lebo.ui.changepassword.ChangedPasswordViewModel
 import com.atom.android.lebo.ui.favorite.FavoriteViewModel
 import com.atom.android.lebo.ui.library.LibraryViewModel
 import com.atom.android.lebo.ui.main.MainViewModel
@@ -18,4 +19,5 @@ val viewModelModule = module {
     viewModel { FavoriteViewModel() }
     viewModel { LibraryViewModel() }
     viewModel { AccountViewModel(get(), get()) }
+    viewModel { ChangedPasswordViewModel(get()) }
 }

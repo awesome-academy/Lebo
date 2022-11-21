@@ -13,8 +13,10 @@ fun <T> Single<T>.withIOToMainThread(): Single<T> =
 fun <T> Observable<T>.withIOToMainThread(): Observable<T> =
     subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-fun <T> Observable<T>.ignoreFastAction() =
-    debounce(Constant.DELAY.INPUT_TEXT, TimeUnit.MILLISECONDS).withIOToMainThread()
+fun <T> Observable<T>.ignoreFastAction(): Observable<T> =
+    debounce(Constant.DELAY.INPUT_TEXT, TimeUnit.MILLISECONDS)
 
-fun <T> Single<T>.handleLoading(show: () -> Unit, hide: () -> Unit) =
+fun <T> Single<T>.handleLoading(show: () -> Unit, hide: () -> Unit): Single<T> =
     doOnSubscribe { show() }.doOnSuccess { hide() }.doOnError { hide() }
+
+fun <T> Observable<T>.skipFirstAction(): Observable<T> = skip(Constant.DEFAULT.FIRST_ACTION)
