@@ -29,11 +29,14 @@ open class BaseViewModel : ViewModel() {
         task: () -> Single<BaseResponse<T>>,
         onSuccess: (BaseResponse<T>) -> Unit,
         onError: (Throwable) -> Unit,
+        loadingInvisible: Boolean = true
     ): Disposable {
-        return task()
-            .withIOToMainThread()
-            .handleLoading(::showLoading, ::hideLoading)
-            .subscribe({ onSuccess(it) }, { onError(it) })
+        return if (loadingInvisible) {
+            task().withIOToMainThread().handleLoading(::showLoading, ::hideLoading)
+                .subscribe({ onSuccess(it) }, { onError(it) })
+        } else {
+            task().withIOToMainThread().subscribe({ onSuccess(it) }, { onError(it) })
+        }
     }
 
     protected fun showLoading() {

@@ -39,4 +39,11 @@
     <string name="text_logout">Đăng xuất</string>
     <string name="text_cancel">Hủy bỏ</string>
     <string name="text_notification_not_login">Bạn chưa đăng nhập !</string>
+    <string name="text_question_logout">Bạn có muốn đăng xuất không ?</string>
+    <string name="text_changed_password">Đổi mật khẩu</string>
+    <string name="text_input_new_password">Nhập mật khẩu mới</string>
+    <string name="text_old_password">Mật khẩu cũ</string>
+    <string name="text_new_password">Mật khẩu mới</string>
+    <string name="text_confirm_password">Xác nhận mật khẩu mới</string>
+    <string name="mess_field_blank">Trường này không chấp nhận khoảng trắng</string>
 </resources>
