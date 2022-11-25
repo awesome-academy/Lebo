@@ -1,4 +1,4 @@
-package com.atom.android.lebo.di
+package com.atom.android.lebo.data.di
 
 import android.content.SharedPreferences
 import com.atom.android.lebo.BuildConfig
