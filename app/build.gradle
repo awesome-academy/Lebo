@@ -8,6 +8,7 @@ buildscript {
 
     dependencies {
         classpath "org.jlleitschuh.gradle:ktlint-gradle:11.0.0"
+        classpath  "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3"
     }
 }
 plugins {
@@ -19,6 +20,7 @@ plugins {
 
 apply plugin: 'kotlin-kapt'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     namespace 'com.atom.android.lebo'
@@ -32,6 +34,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "API_HOST", "\"${API_HOST}\""
+        buildConfigField "String", "BASE_URL", "\"${BASE_URL}\""
     }
 
     buildTypes {
@@ -97,11 +100,12 @@ dependencies {
     implementation group: 'com.squareup.picasso', name: 'picasso', version: "${picasso_version}"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    def koin_version = "3.2.0"
-    implementation "io.insert-koin:koin-android:${koin_version}-beta-1"
-    implementation "io.insert-koin:koin-androidx-navigation:${koin_version}-beta-1"
-    implementation "io.insert-koin:koin-androidx-compose:${koin_version}-beta-1"
-    testImplementation "io.insert-koin:koin-test-junit4:${koin_version}-beta-1"
+    def koin_version = "3.3.0"
+    def koin_core_version = "3.2.2"
+    implementation "io.insert-koin:koin-core:${koin_core_version}"
+    implementation "io.insert-koin:koin-android:${koin_version}"
+    implementation "io.insert-koin:koin-androidx-navigation:${koin_version}"
+    implementation "io.insert-koin:koin-androidx-compose:${koin_version}"
 
     def room_version = "2.4.1"
     implementation "androidx.room:room-runtime:$room_version"
