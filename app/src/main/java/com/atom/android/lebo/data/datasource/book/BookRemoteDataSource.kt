@@ -29,4 +29,8 @@ class BookRemoteDataSource(private val bookService: UnAuthApiService.BookService
     override fun getBookByID(id: Int): Single<BaseResponse<Book?>> {
         return bookService.getBookByID(id)
     }
+
+    override fun getBooksByID(id: List<Int>): Single<BaseResponse<List<Book>?>> {
+        return bookService.getBooksByID(id)
+    }
 }

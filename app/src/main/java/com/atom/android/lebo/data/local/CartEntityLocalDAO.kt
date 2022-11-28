@@ -29,4 +29,6 @@ interface CartEntityLocalDAO {
     @Query("UPDATE cart SET isChecked =:isChecked")
     fun updateAllChecked(isChecked: Boolean): Single<Int>
 
+    @Query("DELETE from cart WHERE idBook IN (:id)")
+    fun deleteByIDs(id: List<Int>): Single<Int>
 }

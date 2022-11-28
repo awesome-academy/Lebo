@@ -12,7 +12,6 @@ import com.atom.android.lebo.data.repository.book.BookRepository
 import com.atom.android.lebo.model.Book
 import com.atom.android.lebo.model.OrderDetail
 import com.atom.android.lebo.utils.constants.Constant
-import com.atom.android.lebo.utils.extensions.ACTION
 
 
 class CartViewModel(
@@ -194,4 +193,11 @@ class CartViewModel(
             }
         )
     }
+}
+
+enum class ACTION(val value: Int) {
+    DELETE(Constant.ACTION.DELETE),
+    INSERT(Constant.ACTION.INSERT),
+    DES(Constant.ACTION.DESCENDING),
+    ASC(Constant.ACTION.ASCENDING),
 }

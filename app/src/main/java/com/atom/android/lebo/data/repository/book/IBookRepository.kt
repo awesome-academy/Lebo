@@ -13,4 +13,5 @@ interface IBookRepository {
     fun getSlider(): Single<BaseResponse<List<Slider>?>>
     fun getBookByID(id: Int): Single<BaseResponse<Book?>>
     fun getBookRelate(idBook: Int): Single<BaseResponse<List<Book>?>>
+    fun getBooksByID(id: List<Int>): Single<BaseResponse<List<Book>?>>
 }
