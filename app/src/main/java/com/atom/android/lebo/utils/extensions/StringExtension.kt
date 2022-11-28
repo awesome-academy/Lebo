@@ -68,12 +68,17 @@ fun String?.isValidOTP(context: Context?) = when {
 }
 
 fun String.convertStrToMoney(): String {
-    val nf: NumberFormat = NumberFormat.getCurrencyInstance()
-    val dfs = DecimalFormatSymbols()
-    dfs.currencySymbol = Constant.DEFAULT.STRING
-    dfs.groupingSeparator = Constant.DEFAULT.DOT
-    nf.minimumFractionDigits = 0
-    nf.roundingMode = RoundingMode.HALF_UP
-    (nf as DecimalFormat).decimalFormatSymbols = dfs
-    return java.lang.String.valueOf(nf.format(BigDecimal(this))) + Constant.CURRENCY_UNIT
+    return try {
+        val nf: NumberFormat = NumberFormat.getCurrencyInstance()
+        val dfs = DecimalFormatSymbols()
+        dfs.currencySymbol = Constant.DEFAULT.STRING
+        dfs.groupingSeparator = Constant.DEFAULT.DOT
+        nf.minimumFractionDigits = 0
+        nf.roundingMode = RoundingMode.HALF_UP
+        (nf as DecimalFormat).decimalFormatSymbols = dfs
+        (nf.format(BigDecimal(this))) + Constant.CURRENCY_UNIT
+    }catch (ex: NumberFormatException){
+        val message = ex.message
+        Constant.DEFAULT.STRING
+    }
 }

@@ -26,8 +26,8 @@ open class BaseViewModel : ViewModel() {
     }
 
     protected fun <T> executeTask(
-        task: () -> Single<BaseResponse<T>>,
-        onSuccess: (BaseResponse<T>) -> Unit,
+        task: () -> Single<T>,
+        onSuccess: (T) -> Unit,
         onError: (Throwable) -> Unit,
         loadingInvisible: Boolean = true
     ): Disposable {

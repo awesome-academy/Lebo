@@ -18,6 +18,10 @@ class BookRemoteDataSource(private val bookService: UnAuthApiService.BookService
         return bookService.getBook(page)
     }
 
+    override fun getRelate(idBook: Int): Single<BaseResponse<List<Book>?>> {
+        return bookService.getBookRelate(idBook)
+    }
+
     override fun getSlider(): Single<BaseResponse<List<Slider>?>> {
         return bookService.getSlider()
     }

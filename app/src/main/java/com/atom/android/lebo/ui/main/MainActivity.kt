@@ -1,5 +1,6 @@
 package com.atom.android.lebo.ui.main
 
+import android.content.Intent
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -40,5 +41,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
 
     private fun setNavigationVisible(isVisible: Boolean = false) {
         binding.navView.isVisible = isVisible
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let {
+            navController.handleDeepLink(it)
+        }
     }
 }

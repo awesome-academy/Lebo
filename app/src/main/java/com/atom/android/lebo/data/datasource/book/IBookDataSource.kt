@@ -11,6 +11,7 @@ interface IBookDataSource {
     interface Remote {
         fun getGenre(): Single<BaseResponse<List<Genre>?>>
         fun getBook(page: Int): Single<BaseResponse<List<Book>?>>
+        fun getRelate(idBook: Int): Single<BaseResponse<List<Book>?>>
         fun getSlider(): Single<BaseResponse<List<Slider>?>>
         fun getBookByID(id: Int): Single<BaseResponse<Book?>>
     }

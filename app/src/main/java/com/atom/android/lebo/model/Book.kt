@@ -18,13 +18,15 @@ data class Book(
     val publicationDate: String?,
     val title: String,
     val availableQuantity: Int?,
-    val bookAuthors: List<Author>
+    val bookAuthors: List<Author>,
+    val amount: Int = 0,
+    val isChecked: Boolean = false
 ) : Parcelable {
 
-    fun getAllNameGenres() = genres
+    fun getAllNameGenres() = genres.sortedBy { it.name }
         .fold(Constant.DEFAULT.STRING) { init, item ->
-        init.plus("${Constant.SLASH} ${item.name}")
-    }.removePrefix(Constant.SLASH)
+            init.plus("${Constant.SLASH} ${item.name}")
+        }.removePrefix(Constant.SLASH)
 
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<Book>() {
