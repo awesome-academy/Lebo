@@ -46,7 +46,7 @@ abstract class BaseFragment<VBinding : ViewBinding>(private val bindingInflater:
 
         viewModel.isLoading.observe(viewLifecycleOwner) {
             if (it) {
-                dialog?.start(true)
+                dialog?.start(false)
             } else {
                 dialog?.dismiss()
             }

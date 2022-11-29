@@ -19,4 +19,7 @@ class BookRepository(private val remote: IBookDataSource.Remote) : IBookReposito
 
     override fun getBookRelate(idBook: Int): Single<BaseResponse<List<Book>?>> =
         remote.getRelate(idBook)
+
+    override fun getBooksByID(id: List<Int>): Single<BaseResponse<List<Book>?>> =
+        remote.getBooksByID(id)
 }
