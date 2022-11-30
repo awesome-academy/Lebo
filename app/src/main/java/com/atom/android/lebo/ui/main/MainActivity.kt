@@ -7,6 +7,8 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.atom.android.lebo.R
 import com.atom.android.lebo.base.BaseActivity
 import com.atom.android.lebo.databinding.ActivityMainBinding
+import com.atom.android.lebo.ui.home.HomeFragmentDirections
+import com.atom.android.lebo.utils.constants.Constant
 import com.atom.android.lebo.utils.extensions.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,7 +19,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private val navController by lazy { findNavController(R.id.nav_host_fragment_activity_main) }
 
     override fun initData() {
-        // late impl
+        handleClickNotification(intent)
     }
 
     override fun handleEvent() {
@@ -47,6 +49,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         super.onNewIntent(intent)
         intent?.let {
             navController.handleDeepLink(it)
+            handleClickNotification(it)
+        }
+    }
+
+    private fun handleClickNotification(intent: Intent) {
+        if (intent.hasExtra(Constant.BUNDLED.BILL_NOTIFICATION)) {
+            val idBill = intent.getStringExtra(Constant.BUNDLED.BILL_NOTIFICATION)
+                ?: Constant.BUNDLED.ERROR
+            val action = HomeFragmentDirections
+                .actionNavigationHomeToNavigationBill(idBill.toInt())
+            navController.navigate(action)
         }
     }
 }

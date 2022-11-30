@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.atom.android.lebo.R
 import com.atom.android.lebo.base.BaseResponse
 import com.atom.android.lebo.base.BaseViewModel
+import com.atom.android.lebo.data.local.CartEntityLocalDAO
 import com.atom.android.lebo.data.repository.author.AuthorRepository
 import com.atom.android.lebo.data.repository.book.BookRepository
 import com.atom.android.lebo.model.Author
@@ -17,7 +18,8 @@ import io.reactivex.rxjava3.core.Single
 
 class HomeViewModel(
     private val bookRepository: BookRepository,
-    private val authorRepository: AuthorRepository
+    private val authorRepository: AuthorRepository,
+    private val cartEntityLocalDAO: CartEntityLocalDAO
 ) : BaseViewModel() {
 
     private var currentPageBook = Constant.DEFAULT.FIRST_PAGE
@@ -38,6 +40,9 @@ class HomeViewModel(
 
     private val _swipeRefreshState = MutableLiveData<Boolean>()
     val swipeRefreshState: LiveData<Boolean> = _swipeRefreshState
+
+    private val _amountCart = MutableLiveData<Int>()
+    val amountCart: LiveData<Int> = _amountCart
 
     fun getGenre() {
         registerDisposable(
@@ -139,6 +144,21 @@ class HomeViewModel(
                 onError = {
                     _swipeRefreshState.value = false
                     error.value = context?.getString(R.string.mess_error_refresh_data)
+                },
+                loadingInvisible = false
+            )
+        )
+    }
+
+    fun getAmountCart() {
+        registerDisposable(
+            executeTask(
+                task = { cartEntityLocalDAO.getTotalAmount() },
+                onSuccess = {
+                    _amountCart.value = it
+                },
+                onError = {
+                    _amountCart.value = Constant.DEFAULT.ITEM_CART
                 },
                 loadingInvisible = false
             )

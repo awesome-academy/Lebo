@@ -17,4 +17,12 @@ class UserRepository(private val remote: IUserDataSource.Remote) : IUserReposito
     ): Single<BaseResponse<String?>> {
         return remote.changedPassword(oldPassword, newPassword)
     }
+
+    override fun registerNotification(token: String): Single<BaseResponse<String?>> {
+        return remote.registerNotification(token)
+    }
+
+    override fun unregisterNotification(token: String): Single<BaseResponse<String?>> {
+        return remote.registerNotification(token)
+    }
 }

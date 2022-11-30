@@ -31,4 +31,7 @@ interface CartEntityLocalDAO {
 
     @Query("DELETE from cart WHERE idBook IN (:id)")
     fun deleteByIDs(id: List<Int>): Single<Int>
+
+    @Query("SELECT SUM(amount) from cart")
+    fun getTotalAmount(): Single<Int>
 }

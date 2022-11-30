@@ -5,6 +5,7 @@ import com.atom.android.lebo.model.Author
 import com.atom.android.lebo.model.Book
 import com.atom.android.lebo.model.Genre
 import com.atom.android.lebo.model.LoginEntity
+import com.atom.android.lebo.model.ShippingMethod
 import com.atom.android.lebo.model.Slider
 import com.atom.android.lebo.utils.constants.ApiConstant
 import io.reactivex.rxjava3.core.Single
@@ -13,6 +14,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UnAuthApiService {
@@ -52,5 +54,19 @@ interface UnAuthApiService {
 
         @GET(ApiConstant.ENDPOINT.BANNER)
         fun getSlider(): Single<BaseResponse<List<Slider>?>>
+
+        @GET("${ApiConstant.ENDPOINT.BOOK}/{id}")
+        fun getBookByID(@Path(ApiConstant.FILED.ID) id: Int): Single<BaseResponse<Book?>>
+
+        @GET(ApiConstant.ENDPOINT.BOOK_RELATE)
+        fun getBookRelate(@Query(ApiConstant.FILED.ID_BOOK) type: Int): Single<BaseResponse<List<Book>?>>
+
+        @POST(ApiConstant.ENDPOINT.CART)
+        fun getBooksByID(@Body id: List<Int>): Single<BaseResponse<List<Book>?>>
+    }
+
+    interface ShippingMethodService {
+        @GET("${ApiConstant.ENDPOINT.SHIPPING_METHOD}/{id}")
+        fun getMoneyShip(@Path(ApiConstant.FILED.ID) id: Int): Single<BaseResponse<ShippingMethod?>>
     }
 }

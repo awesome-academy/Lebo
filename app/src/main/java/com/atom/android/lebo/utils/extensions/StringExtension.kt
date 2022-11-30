@@ -8,6 +8,9 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.TimeZone
 import java.util.regex.Pattern
 
 fun String?.isValidEmail(context: Context?) = when {
@@ -77,8 +80,21 @@ fun String.convertStrToMoney(): String {
         nf.roundingMode = RoundingMode.HALF_UP
         (nf as DecimalFormat).decimalFormatSymbols = dfs
         (nf.format(BigDecimal(this))) + Constant.CURRENCY_UNIT
-    }catch (ex: NumberFormatException){
+    } catch (ex: NumberFormatException) {
         val message = ex.message
+        Constant.DEFAULT.STRING
+    }
+}
+
+fun String?.convertInstantToDate(): String {
+    if (this == null || this.isEmpty()) return Constant.DEFAULT.STRING
+    return try {
+        val inputFormat = SimpleDateFormat(Constant.FORMAT_DATE_TIME_INPUT) // UTC time
+        val outputFormat = SimpleDateFormat(Constant.FORMAT_DATE_TIME) // local time
+        inputFormat.timeZone = TimeZone.getTimeZone(Constant.TIMEZONE)
+        val date = inputFormat.parse(this)
+        outputFormat.format(date).toString()
+    } catch (ex: ParseException) {
         Constant.DEFAULT.STRING
     }
 }
