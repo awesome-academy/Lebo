@@ -11,4 +11,12 @@ class BillRepository(private val remote: IBillDataSource.Remote) : IBillReposito
     override fun createOrder(order: Order): Single<BaseResponse<Bill>> {
         return remote.createOrder(order)
     }
+
+    override fun getBill(type: Int): Single<BaseResponse<List<Bill>?>> {
+        return remote.getBill(type)
+    }
+
+    override fun getBillByID(id: Int): Single<BaseResponse<Bill>> {
+        return remote.getBillByID(id)
+    }
 }

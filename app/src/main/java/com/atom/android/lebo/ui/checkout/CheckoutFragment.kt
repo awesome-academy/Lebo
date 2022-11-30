@@ -20,7 +20,6 @@ import com.google.android.gms.location.LocationServices
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>(FragmentCheckoutBinding::inflate) {
 
     override val viewModel by viewModel<CheckoutViewModel>()
@@ -33,6 +32,15 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>(FragmentCheckoutB
 
     private var idShippingMethod = Constant.DEFAULT.ID_SHIPPING_METHOD
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { isGranted ->
+        if (isGranted.any { it.value == false }.not()) {
+            getLastLocation()
+        } else {
+            context?.showToast(R.string.error_permission_location)
+        }
+    }
 
     override fun initData() {
         viewModel.getMoneyOfShip(idShippingMethod)
@@ -109,15 +117,6 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>(FragmentCheckoutB
     }
 
     private fun getLastLocation() {
-        val requestPermissionLauncher = registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { isGranted ->
-            if (isGranted.any { it.value == false }.not()) {
-                getLastLocation()
-            } else {
-                context?.showToast(R.string.error_permission_location)
-            }
-        }
         activity?.let {
             val fusedLocationProviderClient: FusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(it)
@@ -137,7 +136,7 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>(FragmentCheckoutB
                 )
             } else {
                 fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
+                    if (task.isSuccessful && task.result != null) {
                         viewModel.getLocationName(it, task.result)
                     }
                 }

@@ -8,4 +8,6 @@ import io.reactivex.rxjava3.core.Single
 interface IBillRepository {
 
     fun createOrder(order: Order): Single<BaseResponse<Bill>>
+    fun getBill(type: Int): Single<BaseResponse<List<Bill>?>>
+    fun getBillByID(id: Int): Single<BaseResponse<Bill>>
 }

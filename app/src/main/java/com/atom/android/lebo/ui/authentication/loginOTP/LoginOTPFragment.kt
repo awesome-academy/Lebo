@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import com.atom.android.lebo.R
 import com.atom.android.lebo.base.BaseFragment
 import com.atom.android.lebo.databinding.FragmentLoginOTPBinding
+import com.atom.android.lebo.ui.main.MainViewModel
 import com.atom.android.lebo.utils.constants.Constant
 import com.atom.android.lebo.utils.extensions.closeKeyboard
 import com.atom.android.lebo.utils.extensions.isValidOTP
@@ -12,11 +13,15 @@ import com.atom.android.lebo.utils.extensions.showKeyboard
 import com.atom.android.lebo.utils.extensions.showToast
 import com.atom.android.lebo.utils.extensions.textCountDown
 import com.jakewharton.rxbinding4.widget.textChanges
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginOTPFragment : BaseFragment<FragmentLoginOTPBinding>(FragmentLoginOTPBinding::inflate) {
 
     override val viewModel by viewModel<LoginOTPViewModel>()
+
+    private val activityViewModel by activityViewModel<MainViewModel>()
+
     private var email: String? = null
     override fun initData() {
         email = arguments?.getString(Constant.BUNDLED.EMAIL)
@@ -32,6 +37,8 @@ class LoginOTPFragment : BaseFragment<FragmentLoginOTPBinding>(FragmentLoginOTPB
 
             loginState.observe(viewLifecycleOwner) {
                 context?.showToast(it.toString())
+                activityViewModel.getUser()
+                activityViewModel.registerTokenNotification()
                 findNavController().navigate(R.id.action_navigation_login_otp_to_navigation_home)
             }
 

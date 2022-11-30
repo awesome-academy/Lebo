@@ -18,4 +18,12 @@ class UserRemoteDataSource(private val userService: AuthApiService.UserService) 
     ): Single<BaseResponse<String?>> {
         return userService.changePassword(oldPassword, newPassword)
     }
+
+    override fun registerNotification(token: String): Single<BaseResponse<String?>> {
+        return userService.registerNotification(token)
+    }
+
+    override fun unregisterNotification(token: String): Single<BaseResponse<String?>> {
+        return userService.registerNotification(token)
+    }
 }

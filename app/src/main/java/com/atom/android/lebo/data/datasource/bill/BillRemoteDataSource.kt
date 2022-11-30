@@ -12,4 +12,12 @@ class BillRemoteDataSource(private val billService: AuthApiService.BillService) 
     override fun createOrder(order: Order): Single<BaseResponse<Bill>> {
         return billService.createOrder(order)
     }
+
+    override fun getBill(type: Int): Single<BaseResponse<List<Bill>?>> {
+        return billService.getBill(type)
+    }
+
+    override fun getBillByID(id: Int): Single<BaseResponse<Bill>> {
+        return billService.getBillByID(id)
+    }
 }

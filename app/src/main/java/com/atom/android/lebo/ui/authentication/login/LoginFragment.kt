@@ -51,6 +51,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             loginState.observe(viewLifecycleOwner) {
                 context?.showToast(it.toString())
                 activityViewModel.getUser()
+                activityViewModel.registerTokenNotification()
                 findNavController().navigate(R.id.action_navigation_login_to_navigation_home)
             }
 
