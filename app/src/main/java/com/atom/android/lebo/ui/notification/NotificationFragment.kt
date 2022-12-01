@@ -43,7 +43,9 @@ class NotificationFragment :
     }
 
     private fun onClick(notification: Notification) {
-        viewModel.updateNotification(notification.id)
+        if (notification.isRead.not()) {
+            viewModel.updateNotification(notification.id)
+        }
         val action =
             NotificationFragmentDirections.actionNavigationNotificationToNavigationBill(notification.idOrder)
         findNavController().navigate(action)

@@ -25,21 +25,26 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>(FragmentAccountBind
 
     override fun initView() {
         viewModel.logoutState.observe(viewLifecycleOwner) {
+            activityViewModel.clearUser()
             findNavController().navigate(R.id.action_navigation_account_to_navigation_login)
         }
         activityViewModel.user.observe(viewLifecycleOwner) {
-            binding.apply {
-                btnLogout.isVisible = it.status
-                btnLogin.isVisible = !it.status
-                if (it.status) {
-                    val user = it.data
-                    user?.let {
-                        imageUser.loadImage(Uri.parse(it.image))
-                        textViewNameUser.text = it.name
+            if (it != null) {
+                binding.apply {
+                    btnLogout.isVisible = it.status
+                    btnLogin.isVisible = !it.status
+                    if (it.status) {
+                        val user = it.data
+                        user?.let {
+                            imageUser.loadImage(Uri.parse(it.image))
+                            textViewNameUser.text = it.name
+                        }
+                    } else {
+                        textViewNameUser.text = getString(R.string.text_notification_not_login)
                     }
-                } else {
-                    textViewNameUser.text = getString(R.string.text_notification_not_login)
                 }
+            } else {
+                binding.textViewNameUser.text = getString(R.string.text_notification_not_login)
             }
             binding.swipeRefreshLayout.isRefreshing = false
         }

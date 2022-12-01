@@ -4,7 +4,9 @@ import androidx.navigation.fragment.findNavController
 import com.atom.android.lebo.base.BaseFragment
 import com.atom.android.lebo.databinding.FragmentForgotPasswordBinding
 import com.atom.android.lebo.utils.constants.Constant
+import com.atom.android.lebo.utils.extensions.ignoreFastAction
 import com.atom.android.lebo.utils.extensions.showToast
+import com.atom.android.lebo.utils.extensions.withIOToMainThread
 import com.jakewharton.rxbinding4.widget.textChanges
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,7 +41,11 @@ class ForgotPasswordFragment :
     }
 
     override fun initEvent() {
-        val observableEmail = binding.textInputLayoutEmail.editText?.textChanges()
+        val observableEmail =
+            binding.textInputLayoutEmail.editText
+                ?.textChanges()
+                ?.ignoreFastAction()
+                ?.withIOToMainThread()
         viewModel.validateEmail(context, observableEmail)
         binding.btnForgotPassword.setOnClickListener {
             viewModel.requestForgotPassword(binding.textInputLayoutEmail.editText?.text.toString())

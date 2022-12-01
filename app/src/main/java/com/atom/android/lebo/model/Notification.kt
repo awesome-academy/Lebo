@@ -11,7 +11,8 @@ data class Notification(
     val title: String,
     val body: String,
     val idOrder: Int,
-    @SerializedName("read") val isRead: Boolean,
+    @SerializedName("read")
+    val isRead: Boolean,
     val createdAt: String
 ) : Parcelable {
     companion object {

@@ -1,5 +1,6 @@
 package com.atom.android.lebo.ui.main
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -9,6 +10,7 @@ import com.atom.android.lebo.base.BaseActivity
 import com.atom.android.lebo.databinding.ActivityMainBinding
 import com.atom.android.lebo.ui.home.HomeFragmentDirections
 import com.atom.android.lebo.utils.constants.Constant
+import com.atom.android.lebo.utils.extensions.openDialogQuestion
 import com.atom.android.lebo.utils.extensions.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -60,6 +62,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
             val action = HomeFragmentDirections
                 .actionNavigationHomeToNavigationBill(idBill.toInt())
             navController.navigate(action)
+        }
+    }
+
+    override fun onBackPressed() {
+        val dialog = Dialog(this)
+        val title = getString(R.string.title_exit_app)
+        val message = getString(R.string.message_exit_app)
+        if (navController.backQueue.size == Constant.DEFAULT.QUEUEBACKSTACK) {
+            dialog.openDialogQuestion(title, message) { finish() }
+        } else {
+            super.onBackPressed()
         }
     }
 }

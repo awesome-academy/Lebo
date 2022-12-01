@@ -27,7 +27,7 @@
                 android:elevation="@dimen/_10dp"
                 app:cardCornerRadius="@dimen/_10dp"
                 app:cardUseCompatPadding="true"
-                app:layout_constraintEnd_toStartOf="@id/image_view_ring"
+                app:layout_constraintEnd_toStartOf="@id/layout_notification"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -50,27 +50,65 @@
                     app:drawableStartCompat="@drawable/ic_search_green_24dp" />
             </com.google.android.material.card.MaterialCardView>
 
-            <ImageView
-                android:id="@+id/image_view_ring"
+            <FrameLayout
+                android:id="@+id/layout_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
-                android:src="@drawable/ic_notification_green_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/image_view_cart"
+                app:layout_constraintEnd_toStartOf="@id/layout_cart"
                 app:layout_constraintStart_toEndOf="@id/search_view"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/image_view_cart"
+                <ImageView
+                    android:id="@+id/image_view_ring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5dp"
+                    android:src="@drawable/ic_notification_green_24dp" />
+
+                <TextView
+                    android:id="@+id/text_view_amount_notification"
+                    android:layout_width="@dimen/_16dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/bg_badge_icon"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:id="@+id/layout_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_12dp"
-                android:src="@drawable/ic_cart_green_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_view_ring"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/layout_notification"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/image_view_cart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5dp"
+                    android:src="@drawable/ic_cart_green_24dp" />
+
+                <TextView
+                    android:id="@+id/text_view_amount_cart"
+                    android:layout_width="@dimen/_16dp"
+                    android:layout_height="@dimen/_16dp"
+                    android:layout_gravity="top|end"
+                    android:background="@drawable/bg_badge_icon"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_12sp"
+                    android:visibility="gone" />
+            </FrameLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
