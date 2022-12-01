@@ -10,8 +10,8 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 class MainViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
-    private val _user = MutableLiveData<BaseResponse<User?>>()
-    val user: LiveData<BaseResponse<User?>>
+    private val _user = MutableLiveData<BaseResponse<User?>?>()
+    val user: LiveData<BaseResponse<User?>?>
         get() = _user
 
     init {
@@ -23,9 +23,16 @@ class MainViewModel(private val userRepository: UserRepository) : BaseViewModel(
             executeTask(
                 task = { userRepository.getUsers() },
                 onSuccess = {
-                    _user.value = it
+                    if (it.status) {
+                        _user.value = it
+                    } else {
+                        _user.value = null
+                    }
                 },
-                onError = { error.value = it.message },
+                onError = {
+                    error.value = it.message
+                    _user.value = null
+                },
                 loadingInvisible = false
             )
         )
@@ -50,5 +57,9 @@ class MainViewModel(private val userRepository: UserRepository) : BaseViewModel(
                 loadingInvisible = false
             )
         )
+    }
+
+    fun clearUser() {
+        _user.value = null
     }
 }

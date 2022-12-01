@@ -5,9 +5,4 @@
     android:layout_height="match_parent"
     tools:context=".ui.splash.SplashActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/image_splash_screen" />
 </androidx.constraintlayout.widget.ConstraintLayout>

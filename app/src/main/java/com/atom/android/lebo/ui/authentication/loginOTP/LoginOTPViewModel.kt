@@ -11,6 +11,7 @@ import com.atom.android.lebo.utils.constants.Constant
 import com.atom.android.lebo.utils.extensions.ignoreFastAction
 import com.atom.android.lebo.utils.extensions.isValidEmail
 import com.atom.android.lebo.utils.extensions.saveTokenLogin
+import com.atom.android.lebo.utils.extensions.withIOToMainThread
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
@@ -106,9 +107,8 @@ class LoginOTPViewModel(
         registerDisposable(
             textOTPObservable
                 .ignoreFastAction()
-                .subscribe {
-                    _autoSubmitOTP.value = it.toString()
-                }
+                .withIOToMainThread()
+                .subscribe({ _autoSubmitOTP.value = it.toString() }, { error.value = it.message })
         )
     }
 

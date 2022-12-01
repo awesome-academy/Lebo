@@ -1,6 +1,7 @@
 package com.atom.android.lebo.ui.checkout
 
 import android.Manifest
+import android.app.Dialog
 import android.content.pm.PackageManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -14,6 +15,7 @@ import com.atom.android.lebo.ui.main.MainViewModel
 import com.atom.android.lebo.utils.constants.ApiConstant
 import com.atom.android.lebo.utils.constants.Constant
 import com.atom.android.lebo.utils.extensions.convertStrToMoney
+import com.atom.android.lebo.utils.extensions.openDialogQuestion
 import com.atom.android.lebo.utils.extensions.showToast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -78,11 +80,11 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>(FragmentCheckoutB
         }
 
         activityViewModel.user.observe(viewLifecycleOwner) {
-            if (it.status) {
+            if (it != null) {
                 val user = it.data
-                user?.let { _user ->
-                    binding.editTextPhone.setText(_user.phone)
-                    binding.editTextReceiver.setText(_user.name)
+                if (it.status && user != null) {
+                    binding.editTextPhone.setText(user.phone)
+                    binding.editTextReceiver.setText(user.name)
                 }
             }
         }
@@ -104,15 +106,34 @@ class CheckoutFragment : BaseFragment<FragmentCheckoutBinding>(FragmentCheckoutB
             toolBarBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+            textViewAddLocationByMap.setOnClickListener {
+                getLastLocation()
+                context?.showToast(R.string.mess_get_location)
+            }
         }
         binding.btnOrderInCheckout.setOnClickListener {
-            val address = binding.editTextGetLocationInCheckout.text.toString().trim()
-            val note = binding.editTextNote.text.toString().trim()
-            val phone = binding.editTextPhone.text.toString().trim()
-            val receiver = binding.editTextReceiver.text.toString().trim()
-            val order =
-                Order(address, idShippingMethod.toString(), note, listOrder, phone, receiver)
-            viewModel.createNewBill(context, order)
+            val userResponse = activityViewModel.user.value
+            if (userResponse == null || !userResponse.status) {
+                context?.let { context ->
+                    val dialog = Dialog(context)
+                    val title = getString(R.string.title_required_login)
+                    val message = getString(R.string.messsage_required_login)
+                    val action =
+                        CheckoutFragmentDirections.actionNavigationCheckoutToNavigationLogin()
+                    dialog.openDialogQuestion(
+                        title,
+                        message
+                    ) { findNavController().navigate(action) }
+                }
+            } else {
+                val address = binding.editTextGetLocationInCheckout.text.toString().trim()
+                val note = binding.editTextNote.text.toString().trim()
+                val phone = binding.editTextPhone.text.toString().trim()
+                val receiver = binding.editTextReceiver.text.toString().trim()
+                val order =
+                    Order(address, idShippingMethod.toString(), note, listOrder, phone, receiver)
+                viewModel.createNewBill(context, order)
+            }
         }
     }
 

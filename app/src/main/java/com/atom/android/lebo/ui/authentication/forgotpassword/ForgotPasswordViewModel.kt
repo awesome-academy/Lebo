@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.atom.android.lebo.base.BaseViewModel
 import com.atom.android.lebo.data.repository.forgotpassword.ForgotPasswordRepository
-import com.atom.android.lebo.utils.extensions.ignoreFastAction
 import com.atom.android.lebo.utils.extensions.isValidEmail
 import io.reactivex.rxjava3.core.Observable
 
@@ -43,10 +42,9 @@ class ForgotPasswordViewModel(
         emailObservable?.let {
             registerDisposable(
                 emailObservable
-                    .ignoreFastAction()
                     .map {
                         it.toString().isValidEmail(context)
-                    }.subscribe { _validateEmail.value = it }
+                    }.subscribe({ _validateEmail.value = it }, { error.value = it.message })
             )
         }
     }

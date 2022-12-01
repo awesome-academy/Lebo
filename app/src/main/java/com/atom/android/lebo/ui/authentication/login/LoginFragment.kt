@@ -52,7 +52,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 context?.showToast(it.toString())
                 activityViewModel.getUser()
                 activityViewModel.registerTokenNotification()
-                findNavController().navigate(R.id.action_navigation_login_to_navigation_home)
+                if (findNavController().popBackStack().not()) {
+                    findNavController().navigate(R.id.action_navigation_login_to_navigation_home)
+                }
             }
 
             account.observe(viewLifecycleOwner) {

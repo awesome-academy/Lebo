@@ -72,7 +72,8 @@ class LoginViewModel(
                 _validateEmail.value = validEmailResult
                 _validatePassword.value = validPasswordResult
                 validEmailResult.first && validPasswordResult.first
-            }.distinctUntilChanged().subscribe { _validateForm.value = it }
+            }.distinctUntilChanged()
+                .subscribe({ _validateForm.value = it }, { error.value = it.message })
         )
     }
 }

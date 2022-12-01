@@ -37,9 +37,12 @@ class FavoriteViewModel(private val favoriteEntityLocalDAO: FavoriteEntityLocalD
                 onSuccess = {
                     if (it == Constant.DEFAULT.ROW_EFFECT) {
                         val oldList = _favoriteItem.value?.toMutableList()
-                        oldList?.let {
-                            it.remove(itemFavorite)
-                            _favoriteItem.value = it
+                        oldList?.let { list ->
+                            val itemRemove = list.find {item -> itemFavorite.idBook == item.idBook }
+                            itemRemove?.let {
+                                list.remove(it)
+                                _favoriteItem.value = list
+                            }
                         }
                     }
                 },
